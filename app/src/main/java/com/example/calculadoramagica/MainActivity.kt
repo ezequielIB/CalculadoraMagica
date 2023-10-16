@@ -5,35 +5,28 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-
 class MainActivity : AppCompatActivity() {
 
-    // Variables para mantener el estado de la calculadora
-    private var input: String = ""
-    private var operator: String = ""
-    private var firstValue: Double = 0.0
-
-    // Vistas
-    private lateinit var txtInput: TextView
+    private lateinit var inputText: TextView
+    private var input = ""
+    private var firstValue = 0.0
+    private var operator = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.buttons_ui)
 
-        // Inicializa las vistas
-        txtInput = findViewById(R.id.txtInput)
+        inputText = findViewById(R.id.txtInput) // Asegúrate de que el ID sea el correcto
     }
 
-    // Método para manejar los clics de los botones numéricos y el botón decimal
     fun onNumberClick(view: View) {
         if (view is Button) {
             val value = view.text.toString()
             input += value
-            updateInput()
+            updateInputText()
         }
     }
 
-    // Método para manejar los clics de los botones de operadores (+, -, *, /)
     fun onOperatorClick(view: View) {
         if (view is Button) {
             operator = view.text.toString()
@@ -42,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Método para manejar el clic del botón igual (=)
     fun onEqualsClick(view: View) {
         if (input.isNotEmpty()) {
             val secondValue = input.toDouble()
@@ -55,20 +47,18 @@ class MainActivity : AppCompatActivity() {
             }
             input = result.toString()
             operator = ""
-            updateInput()
+            updateInputText()
         }
     }
 
-    // Método para manejar el clic del botón Clear (C)
     fun onClearClick(view: View) {
         input = ""
         operator = ""
         firstValue = 0.0
-        updateInput()
+        updateInputText()
     }
 
-    // Actualiza el campo de entrada en la vista
-    private fun updateInput() {
-        txtInput.text = input
+    private fun updateInputText() {
+        inputText.text = input
     }
 }
